@@ -65,6 +65,7 @@ class CommentsSection(object):
             creator = item.get('author_name', '')
             creation_date = item.get('published', '')
             modification_date = item.get('updated', '')
+            mime_type = item.get('mime_type', 'text/x-html-safe')
             if comment_type == "plone.app.discussion":
                 conversation = IConversation(obj)
                 # create a reply object
@@ -72,6 +73,9 @@ class CommentsSection(object):
                 comment.title = title
                 comment.text = text
                 comment.creator = creator
+                comment.author_name = creator
+                comment.author_username = creator
+                comment.mime_type = mime_type
                 # TODO: strptime is is python2.5+, need python2.4 solution
                 if not isinstance(creation_date, datetime):
                     creation_date = datetime.strptime(
